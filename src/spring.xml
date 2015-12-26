@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    
+<!-- 1 -->	
+	<bean      id = "simple" class = "SimpleSpringExample.Simple"   scope = "prototype"  >
+		<property name="path" value="some value xyz"></property>
+	</bean>
+	
+<!-- 2 -->		
+	<bean id = "constructorInjection" class = "ConstructorInjection.ConstructorInjection" >
+		<constructor-arg index ="1" value="60" />
+		<constructor-arg  index ="0" value="some value" />
+	
+		<!-- 
+			<constructor-arg type="java.lang.String" value="45" />
+		 -->
+	</bean>
+
+<!-- 3 -->		
+<!-- you can see in pointB there is inner Beans. It is specifically to pointB only. We can not use it anywhere else -->
+
+	<bean id = "square" class="InjectinObject_InnerBeans.Square">
+			<property name="pointA"  ref="point1" />
+			
+			<property name="pointB"> 
+				
+				<bean   class="InjectinObject_InnerBeans.Point"  >
+				<property name="x" value="30"></property>
+				<property name="y" value="40"></property>
+				</bean>
+			
+			</property>
+			
+			<property name="pointC"  ref="point3" />
+			
+			<property name="pointD"  ref="point4" />
+	 </bean>
+
+	<bean id = "point1"   class="InjectinObject_InnerBeans.Point"  >
+	<property name="x" value="10"></property>
+	<property name="y" value="20"></property>
+	</bean>
+	
+	
+	<bean id = "point3"   class="InjectinObject_InnerBeans.Point"  >
+	<property name="x" value="50"></property>
+	<property name="y" value="60"></property>
+	</bean>
+	
+	
+	<bean id = "point4"   class="InjectinObject_InnerBeans.Point"  >
+	<property name="x" value="70"></property>
+	<property name="y" value="80"></property>
+	</bean>
+	
+	
+	<alias name="square" alias="square-alias"/>
+	
+<!-- 4 -->		
+  
+	<bean id="collection" class="Collection.CollectionClass">
+		<property name="points">
+			<list>
+				<ref bean="po3" />
+				<ref bean="po4" />
+				
+			</list>		
+		</property>
+	</bean>
+	
+	
+		<bean id = "po3"   class="Collection.Point"  >
+	<property name="x" value="440"></property>
+	<property name="y" value="660"></property>
+	</bean>
+	
+	
+	<bean id = "po4"   class="Collection.Point"  >
+	<property name="x" value="770"></property>
+	<property name="y" value="880"></property>
+	</bean>
+
+
+<!-- 5 -->		
+	<bean id = "autoWrite" class = "Autowiring.Triangle" autowire="byName">
+		
+	
+	</bean>
+	
+	
+	<bean id = "pointA"   class="Autowiring.Point"  >
+		<property name="x" value="100"></property>
+		<property name="y" value="200"></property>
+	</bean>
+	
+	
+	<bean id = "pointB"   class="Autowiring.Point"  >
+		<property name="x" value="500"></property>
+		<property name="y" value="600"></property>
+	</bean>
+	
+	
+<!-- 6 -->	
+<!-- There should be only one bean per each type in Triangle2 class  -->
+
+
+
+	<bean id = "autoWrite2" class = "Autowiring.Triangle2" autowire="byType">
+	</bean>
+
+	<bean id = "poi"   class="Autowiring.Point2"  >
+		<property name="x" value="1000"></property>
+		<property name="y" value="2000"></property>
+	</bean>
+	
+	
+	
+<!-- 7 -->	
+<!-- change scope to singleton or prototype -->
+<!-- singleton creates only one object  -->
+<!-- prototype creates new object per request  -->
+
+	<bean      id = "scope" class = "SingletonScope_PrototypeScope.Scope"   scope = "prototype"  >
+		<property name="path" value="some value xyz"></property>
+	</bean>
+	
+	
+<!-- 8 -->	
+<!-- 
+here Square is parent class and Point is child class (see Square class we are using Point class i it).
+ lets assume you want to instantiate point object in Square class every time. so one way to do that is by 
+ making scope for point bean to prototype. But what if parent class has a scope of singleton then it will be
+  instantiate only once no matter what the scope for Point bean is. So for that you need context object in 
+  Triangle class and you getBean for each point.
+
+There are many aware interfaces using those interface you can get information about container
+
+  -->
+
+
+
+	<bean id = "applicationcontextaware" class="Application_Context_Aware.Square">
+			<property name="pointA"  ref="po1" />
+			
+			<property name="pointB"> 
+				
+				<bean   class="Application_Context_Aware.Point"  >
+				<property name="x" value="30"></property>
+				<property name="y" value="40"></property>
+				</bean>
+			
+			</property>
+			
+	 </bean>
+
+	<bean id = "po1"   class="Application_Context_Aware.Point"  >
+	<property name="x" value="10"></property>
+	<property name="y" value="20"></property>
+	</bean>
+	
+	
+<!-- 9 -->	
+<!-- abstract is for let's say you dont want parent bean to be initialize you want it as a template -->
+	
+	<bean id ="parentsquare"  class="BeanDefinationInheritace.Square" abstract="true" >
+		<property name="pointA"  ref="poin1" />
+	</bean>
+	
+		<bean id = "beandefinationinheritace_1" class="BeanDefinationInheritace.Square" parent="parentsquare" >
+			<property name="pointB"  ref="poin2" />
+	 </bean>
+	
+	<bean id = "beandefinationinheritace_2" class="BeanDefinationInheritace.Square" parent="parentsquare" >
+			<property name="pointB"  ref="poin3" />
+	 </bean>
+
+
+
+
+	<bean id = "poin1"   class="BeanDefinationInheritace.Point"  >
+		<property name="x" value="890"></property>
+		<property name="y" value="720"></property>
+	</bean>
+	
+	<bean id = "poin2"   class="BeanDefinationInheritace.Point"  >
+		<property name="x" value="540"></property>
+		<property name="y" value="620"></property>
+	</bean>
+	
+	
+	<bean id = "poin3"   class="BeanDefinationInheritace.Point"  >
+		<property name="x" value="080"></property>
+		<property name="y" value="020"></property>
+	</bean>
+	
+	
+	<!-- suppose there is a list of points -->
+	
+	
+	<bean id ="parentsquare_2"  class="BeanDefinationInheritace.SquareList" >
+		<property name="points">
+		<list>
+		  <ref  bean="poin1"  /> 
+		</list>
+		  </property>
+	</bean>
+	
+		<bean id = "beandefinationinheritace_3" class="BeanDefinationInheritace.SquareList" parent="parentsquare_2"  >
+			<property name="points">
+		<list merge="true">
+		  <ref  bean="poin2"  /> 
+		  <ref  bean="poin3"  /> 
+		</list>
+		  </property>
+	 </bean>
+	
+	
+	
+<!-- 10 -->	
+	
+<!-- 	
+	<bean      id = "lifecycle" class = "LifeCycle_Callback.Simple"  init-method="myInit"  destroy-method="cleanUp" >
+		<property name="path" value="some value xyz"></property>
+	</bean>
+
+ -->
+	
+
+<!-- 11 -->	
+<!-- BeanPostProcessor is a class that tells spring that it needs to do processing after initialization of bean 
+	It is called after each and every bean initialized.
+	It is separate class
+	It is lie common class for every bean
+-->
+<!-- 
+	<bean class="Bean_Post_Procesor.DisplayNameBeanPostProcessor"   />
+	 -->
+	
+	<bean  class="BeanFactoryPostProcessor.MyBeanFactoryPP" ></bean>
+	
+	
+	
+	
+	<bean id = "someName" class="BeanFactoryPostProcessor.Square">
+			<property name="pointA"  ref="p1" />	
+	</bean>
+
+	<bean id = "p1"   class="BeanFactoryPostProcessor.Point"  >
+	<property name="x" value="${pointA.pointX}"></property>
+	<property name="y" value="${pointA.pointY}"></property>
+	</bean>
+	
+	<bean  class =  "org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"   >
+	<property name="location" value = "pointsconfig.properties"></property>
+	</bean>
+	
+	
+	
+	
+	
+	
+</beans>
