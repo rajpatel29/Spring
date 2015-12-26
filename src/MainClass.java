@@ -87,23 +87,27 @@ public class MainClass
 		obj10.draw();
      
      	System.out.println("======================");
- */
 
-		System.out.println("======================");
-		
-		
 		
 		BeanFactoryPostProcessor.Square obj11 =  (BeanFactoryPostProcessor.Square) context.getBean("someName");
 		obj11.showDetails();
 		
 		System.out.println("======================");	
+ */
+		
+		System.out.println("======================");	
+		
+		//advantage of using Interface is if you want to add rectangle then it is easy to make change
+		//just implement Shape interface
+		//add bean in spring.xml
+		//then get appropriate bean
+		
+		Coding_To_Interface.Shape  obj12 =  (Coding_To_Interface.Square) context.getBean("codingToInterface_square");
+		obj12.draw();
 		
 		
-		
-		
-		
-		
-		
+		Coding_To_Interface.Shape  obj13 =  (Coding_To_Interface.Triangle) context.getBean("codingToInterface_triangle");
+		obj13.draw();
 		
 		
 		

@@ -260,6 +260,38 @@ There are many aware interfaces using those interface you can get information ab
 	</bean>
 	
 	
+<!-- 12 -->
+	
+	<bean id = "codingToInterface_square"  class="Coding_To_Interface.Square">
+		<property name="pointA" ref="x1" ></property>
+	</bean>
+	
+	
+	<bean id = "codingToInterface_triangle"  class="Coding_To_Interface.Triangle">
+		<property name="pointB" ref="x2" ></property>
+		<property name="pointC" ref="x3" ></property>
+	</bean>
+	
+	
+	
+	<bean id = "x1"   class="Coding_To_Interface.Point"  >
+		<property name="x" value="1"></property>
+		<property name="y" value="2"></property>
+	</bean>
+	
+	<bean id = "x2"   class="Coding_To_Interface.Point"  >
+		<property name="x" value="3"></property>
+		<property name="y" value="4"></property>
+	</bean>
+	
+	<bean id = "x3"   class="Coding_To_Interface.Point"  >
+		<property name="x" value="5"></property>
+		<property name="y" value="6"></property>
+	</bean>
+	
+	
+	
+	
 	
 	
 	
