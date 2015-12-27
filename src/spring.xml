@@ -2,16 +2,20 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:annotation-config/>
     
-    
-<!-- 1 -->	
+<!-- 1    Simple Spring Example-->	
 	<bean      id = "simple" class = "SimpleSpringExample.Simple"   scope = "prototype"  >
 		<property name="path" value="some value xyz"></property>
 	</bean>
 	
-<!-- 2 -->		
+<!-- 2     Constructor Injection-->		
 	<bean id = "constructorInjection" class = "ConstructorInjection.ConstructorInjection" >
 		<constructor-arg index ="1" value="60" />
 		<constructor-arg  index ="0" value="some value" />
@@ -21,7 +25,7 @@
 		 -->
 	</bean>
 
-<!-- 3 -->		
+<!-- 3    InjectinObject InnerBeans-->		
 <!-- you can see in pointB there is inner Beans. It is specifically to pointB only. We can not use it anywhere else -->
 
 	<bean id = "square" class="InjectinObject_InnerBeans.Square">
@@ -61,7 +65,7 @@
 	
 	<alias name="square" alias="square-alias"/>
 	
-<!-- 4 -->		
+<!-- 4    Collection -->		
   
 	<bean id="collection" class="Collection.CollectionClass">
 		<property name="points">
@@ -86,7 +90,7 @@
 	</bean>
 
 
-<!-- 5 -->		
+<!-- 5     Autowiring by Name-->		
 	<bean id = "autoWrite" class = "Autowiring.Triangle" autowire="byName">
 		
 	
@@ -105,7 +109,7 @@
 	</bean>
 	
 	
-<!-- 6 -->	
+<!-- 6    Autowiring by Type-->	
 <!-- There should be only one bean per each type in Triangle2 class  -->
 
 
@@ -120,7 +124,7 @@
 	
 	
 	
-<!-- 7 -->	
+<!-- 7     Scope  -->	
 <!-- change scope to singleton or prototype -->
 <!-- singleton creates only one object  -->
 <!-- prototype creates new object per request  -->
@@ -164,7 +168,7 @@ There are many aware interfaces using those interface you can get information ab
 	</bean>
 	
 	
-<!-- 9 -->	
+<!-- 9      BeanDefinationInheritace-->	
 <!-- abstract is for let's say you dont want parent bean to be initialize you want it as a template -->
 	
 	<bean id ="parentsquare"  class="BeanDefinationInheritace.Square" abstract="true" >
@@ -221,7 +225,7 @@ There are many aware interfaces using those interface you can get information ab
 	
 	
 	
-<!-- 10 -->	
+<!-- 10    LifeCycle_Callback-->	
 	
 <!-- 	
 	<bean      id = "lifecycle" class = "LifeCycle_Callback.Simple"  init-method="myInit"  destroy-method="cleanUp" >
@@ -231,7 +235,7 @@ There are many aware interfaces using those interface you can get information ab
  -->
 	
 
-<!-- 11 -->	
+<!-- 11  BeanFactoryPostProcessor -->	
 <!-- BeanPostProcessor is a class that tells spring that it needs to do processing after initialization of bean 
 	It is called after each and every bean initialized.
 	It is separate class
@@ -260,7 +264,7 @@ There are many aware interfaces using those interface you can get information ab
 	</bean>
 	
 	
-<!-- 12 -->
+<!-- 12    Interface -->
 	
 	<bean id = "codingToInterface_square"  class="Coding_To_Interface.Square">
 		<property name="pointA" ref="x1" ></property>
@@ -287,6 +291,102 @@ There are many aware interfaces using those interface you can get information ab
 	<bean id = "x3"   class="Coding_To_Interface.Point"  >
 		<property name="x" value="5"></property>
 		<property name="y" value="6"></property>
+	</bean>
+	
+	
+<!-- 13      Required Annotation -->
+	
+	<bean id = "requiredAnnotation"  class="Required_Annotation.Circle">
+ 	<property name="centre" ref="x4" ></property>
+ 	
+	</bean>
+	
+	<bean id = "x4"   class="Required_Annotation.Point"  >
+		<property name="x" value="100"></property>
+		<property name="y" value="100"></property>
+	</bean>
+	
+	<!-- comment propery tag in Required_Annotation.Circle Bean  -->
+	<!-- If you dont write below bean and dont use Required annotation in Circle class then
+		you will get run time exception (Null Pointer Exception ). 
+		But if you do write both then you will get exception before bean initialization
+	 -->
+	
+	<bean  class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+	
+	
+<!-- 14     AutoWired Annotation -->	
+	
+		<bean id = "autowiring_annotation"  class="Autowiring_Annotation.Circle">
+		</bean>
+ 	
+	<bean id = "x7"  class="Autowiring_Annotation.Point"  >
+			<qualifier  value="circleRelated"   />
+			<property name="x" value="400"></property>
+			<property name="y" value="400"></property>
+		</bean>
+	
+	
+		<bean id = "x5"  class="Autowiring_Annotation.Point"  >
+			<property name="x" value="1000"></property>
+			<property name="y" value="9000"></property>
+		</bean>
+		
+		
+		<bean  class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+		
+		
+		<!-- comment below code and run -->
+		<!-- suppose if there are more than 1 Autowiring_Annotation.Point bean -->
+
+  		
+		<bean id = "x6"  class="Autowiring_Annotation.Point"  >
+			<property name="x" value="100"></property>
+			<property name="y" value="900"></property>
+		</bean>
+
+
+		
+		<!-- and if you run then you will get exception
+			so for that declare below bean and set its id to variable name declared in  Autowiring_Annotation.Point class
+		 -->
+<!--  		
+		<bean id = "centre_1"  class="Autowiring_Annotation.Point"  >
+			<property name="x" value="10"></property>
+			<property name="y" value="90"></property>
+		</bean>
+-->
+		
+		
+		<!-- suppose you want to declare bean with different id then 
+			uncomment above bean declare annotation in Circle class(@Qualifier)
+		-->
+	
+	
+<!-- 15  JSP-250 Annotation -->	
+		
+	
+		<bean id = "JSP-250"  class="JavaSpecificationRequest_250_Annotation.Circle">
+	
+		</bean>
+ 	
+		<bean id = "x8"  class="JavaSpecificationRequest_250_Annotation.Point"  >
+			<property name="x" value="600"></property>
+			<property name="y" value="600"></property>
+		</bean>
+	
+	
+	
+<!-- 16   Component and Stereotype Annotation -->	
+	
+	<!-- You do not have to declare Circle bean -->
+	<!-- There is one disadvantage of using this. you can not use the same class as a bean more than 1 -->
+	
+	<context:component-scan base-package="Component_Stereotype_Annotation"   />
+	
+	<bean id = "x9"  class="Component_Stereotype_Annotation.Point"  >
+			<property name="x" value="60"></property>
+			<property name="y" value="60"></property>
 	</bean>
 	
 	

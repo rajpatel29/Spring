@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import Autowiring.Triangle;
 import Autowiring.Triangle2;
 import Collection.CollectionClass;
+import Component_Stereotype_Annotation.Circle_22;
 import ConstructorInjection.ConstructorInjection;
 import InjectinObject_InnerBeans.Square;
 import SimpleSpringExample.Simple;
@@ -93,9 +94,8 @@ public class MainClass
 		obj11.showDetails();
 		
 		System.out.println("======================");	
- */
 		
-		System.out.println("======================");	
+			
 		
 		//advantage of using Interface is if you want to add rectangle then it is easy to make change
 		//just implement Shape interface
@@ -108,6 +108,34 @@ public class MainClass
 		
 		Coding_To_Interface.Shape  obj13 =  (Coding_To_Interface.Triangle) context.getBean("codingToInterface_triangle");
 		obj13.draw();
+		
+		System.out.println("======================");
+
+		
+		System.out.println("======================");
+		
+		Required_Annotation.Circle obj14 = (Required_Annotation.Circle) context.getBean("requiredAnnotation");
+		obj14.draw();
+		
+		System.out.println("======================");
+	
+		
+		Autowiring_Annotation.Circle obj14 = (Autowiring_Annotation.Circle) context.getBean("autowiring_annotation");
+		obj14.draw();
+		
+		System.out.println("======================");
+		
+ 
+	
+		JavaSpecificationRequest_250_Annotation.Circle obj14 = (JavaSpecificationRequest_250_Annotation.Circle) context.getBean("JSP-250");
+		obj14.draw();
+		
+		System.out.println("======================");
+*/			
+		
+		Circle_22 obj14 = (Circle_22) context.getBean("circle_22");
+		obj14.draw();
+		
 		
 		
 		
