@@ -9,6 +9,7 @@ import Autowiring.Triangle2;
 import Collection.CollectionClass;
 import Component_Stereotype_Annotation.Circle_22;
 import ConstructorInjection.ConstructorInjection;
+import Get_Text_From_Propery_File.Circle_45;
 import InjectinObject_InnerBeans.Square;
 import SimpleSpringExample.Simple;
 import SingletonScope_PrototypeScope.Scope;
@@ -131,18 +132,22 @@ public class MainClass
 		obj14.draw();
 		
 		System.out.println("======================");
-*/			
+			
 		
 		Circle_22 obj14 = (Circle_22) context.getBean("circle_22");
 		obj14.draw();
 		
+		System.out.println("======================");
 		
+	*/	
 		
+		//see the documentation for the 4 arguments
+		System.out.println("From main Class " + context.getMessage("greeting", null, "default Message" , null));
 		
+		Circle_45 obj15 = (Circle_45) context.getBean("circle_45");
+		obj15.draw();
 		
-		
-		
-		
+		System.out.println("======================");
 		
 		
 		
