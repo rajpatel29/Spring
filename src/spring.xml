@@ -381,6 +381,7 @@ There are many aware interfaces using those interface you can get information ab
 	
 	<!-- You do not have to declare Circle bean -->
 	<!-- There is one disadvantage of using this. you can not use the same class as a bean more than 1 -->
+	<!-- whenever you use @Component Annotation you have to write below line -->
 	
 	<context:component-scan base-package="Component_Stereotype_Annotation"   />
 	
@@ -413,6 +414,9 @@ There are many aware interfaces using those interface you can get information ab
 	
 	
 	
+<!-- 18 Event Handling -->
+	
+	<context:component-scan base-package="Event_Handling"   />
 	
 	
 	

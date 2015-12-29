@@ -9,6 +9,7 @@ import Autowiring.Triangle2;
 import Collection.CollectionClass;
 import Component_Stereotype_Annotation.Circle_22;
 import ConstructorInjection.ConstructorInjection;
+import Event_Handling.Simple_1;
 import Get_Text_From_Propery_File.Circle_45;
 import InjectinObject_InnerBeans.Square;
 import SimpleSpringExample.Simple;
@@ -139,7 +140,7 @@ public class MainClass
 		
 		System.out.println("======================");
 		
-	*/	
+		
 		
 		//see the documentation for the 4 arguments
 		System.out.println("From main Class " + context.getMessage("greeting", null, "default Message" , null));
@@ -148,6 +149,38 @@ public class MainClass
 		obj15.draw();
 		
 		System.out.println("======================");
+		
+		
+		
+		//ApplicationListener(Class which listen all the event)
+		//publish event
+		//Event itself(Class)
+		
+		Event_Handling.Simple_1 obj16 = (Event_Handling.Simple_1) context.getBean("simple_1");
+		obj16.draw();
+		
+		
+		System.out.println("======================");
+*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
