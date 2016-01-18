@@ -5,6 +5,11 @@ public class Apple
 	private int id;
 	private String name;
 	
+	public Apple()
+	{
+		
+	}
+	
 	
 	public Apple(int id, String name)
 	{
